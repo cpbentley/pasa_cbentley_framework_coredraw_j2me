@@ -5,6 +5,7 @@ import javax.microedition.lcdui.Font;
 import pasa.cbentley.framework.coredraw.j2me.ctx.CoreDrawJ2MECtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontAbstract;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 public class FontJ2ME extends FontAbstract implements IMFont {
 
@@ -38,6 +39,13 @@ public class FontJ2ME extends FontAbstract implements IMFont {
 
    public int getSize() {
       return f.getSize();
+   }
+
+   public boolean isMonospace() {
+      if (f.getFace() == ITechFont.FACE_MONOSPACE) {
+         return true;
+      }
+      return stringWidth("m") == stringWidth("i");
    }
 
    public int getWidthWeigh() {
@@ -75,6 +83,5 @@ public class FontJ2ME extends FontAbstract implements IMFont {
    public int getBaselinePosition() {
       return 0;
    }
-   
-   
+
 }
