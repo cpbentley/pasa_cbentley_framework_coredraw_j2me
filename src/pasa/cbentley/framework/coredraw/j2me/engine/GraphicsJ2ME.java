@@ -19,10 +19,10 @@ public class GraphicsJ2ME extends GraphicsAbstract implements IGraphics {
 
    private int             fwFlags;
 
-   public GraphicsJ2ME(Graphics g, CoreDrawJ2MECtx dd) {
-      super(dd);
+   public GraphicsJ2ME(Graphics g, CoreDrawJ2MECtx cdc) {
+      super(cdc);
       this.g = g;
-      this.dd = dd;
+      this.dd = cdc;
    }
 
    public boolean hasImplementationFlag(int flag) {

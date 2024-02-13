@@ -12,7 +12,7 @@ import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
 public class J2MEFontFactory extends FontFactoryAbstract {
 
-   protected final CoreDrawJ2MECtx dd;
+   protected final CoreDrawJ2MECtx cdc;
 
    FontJ2ME                        defaultFont;
 
@@ -29,17 +29,12 @@ public class J2MEFontFactory extends FontFactoryAbstract {
 
    public J2MEFontFactory(CoreDrawJ2MECtx j2meCtx) {
       super(j2meCtx);
-      this.dd = j2meCtx;
+      this.cdc = j2meCtx;
    }
 
-   public String[] getFontFamilies() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public void loadFont(InputStream is, String string) {
-      // TODO Auto-generated method stub
-
+   protected IMFont createFont(int face, int style, int size) {
+      Font f = Font.getFont(face, style, size);
+      return new FontJ2ME(cdc, f);
    }
 
    public VisualState fontSizeDecrease() {
@@ -69,7 +64,7 @@ public class J2MEFontFactory extends FontFactoryAbstract {
 
    public IMFont getDefaultFont() {
       if (defaultFont == null) {
-         defaultFont = new FontJ2ME(dd, Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
+         defaultFont = new FontJ2ME(cdc, Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
       }
       return defaultFont;
    }
@@ -88,7 +83,7 @@ public class J2MEFontFactory extends FontFactoryAbstract {
       } else if (size == IMFont.SIZE_1_TINY) {
          size = Font.SIZE_SMALL;
       }
-      return new FontJ2ME(dd, Font.getFont(face, style, size));
+      return new FontJ2ME(cdc, Font.getFont(face, style, size));
    }
 
    /**
@@ -111,6 +106,11 @@ public class J2MEFontFactory extends FontFactoryAbstract {
     */
    public int getFontFaceID(String string) {
       return IMFont.FACE_SYSTEM;
+   }
+
+   public String[] getFontFamilies() {
+      // TODO Auto-generated method stub
+      return null;
    }
 
    public String getFontName() {
@@ -160,6 +160,11 @@ public class J2MEFontFactory extends FontFactoryAbstract {
     */
    public int loadCustomFont(String string) {
       return -1;
+   }
+
+   public void loadFont(InputStream is, String string) {
+      // TODO Auto-generated method stub
+
    }
 
    public void paintDone() {
