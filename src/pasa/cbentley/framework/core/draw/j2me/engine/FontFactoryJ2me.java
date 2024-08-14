@@ -1,20 +1,20 @@
-package pasa.cbentley.framework.coredraw.j2me.engine;
+package pasa.cbentley.framework.core.draw.j2me.engine;
 
 import java.io.InputStream;
 
 import javax.microedition.lcdui.Font;
 
-import pasa.cbentley.framework.coredraw.j2me.ctx.CoreDrawJ2MECtx;
+import pasa.cbentley.framework.core.draw.j2me.ctx.CoreDrawJ2meCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontFactoryAbstract;
 import pasa.cbentley.framework.coredraw.src4.engine.VisualState;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
-public class J2MEFontFactory extends FontFactoryAbstract {
+public class FontFactoryJ2me extends FontFactoryAbstract {
 
-   protected final CoreDrawJ2MECtx cdc;
+   protected final CoreDrawJ2meCtx cdc;
 
-   FontJ2ME                        defaultFont;
+   FontJ2me                        defaultFont;
 
    /**
     * <li> {@link ISizer#SIZE_0_NONE} = 0
@@ -27,14 +27,14 @@ public class J2MEFontFactory extends FontFactoryAbstract {
     */
    int[]                           scalePadding = new int[] { 0, 2, 4, 5, 6, 8, 10 };
 
-   public J2MEFontFactory(CoreDrawJ2MECtx j2meCtx) {
+   public FontFactoryJ2me(CoreDrawJ2meCtx j2meCtx) {
       super(j2meCtx);
       this.cdc = j2meCtx;
    }
 
    protected IMFont createFont(int face, int style, int size) {
       Font f = Font.getFont(face, style, size);
-      return new FontJ2ME(cdc, f);
+      return new FontJ2me(cdc, f);
    }
 
    public VisualState fontSizeDecrease() {
@@ -43,7 +43,7 @@ public class J2MEFontFactory extends FontFactoryAbstract {
    }
 
    /**
-    * Increasing the Font sizes means {@link FontJ2ME} increase
+    * Increasing the Font sizes means {@link FontJ2me} increase
     * <li> small
     * <li> small bold
     * <li> normal
@@ -64,7 +64,7 @@ public class J2MEFontFactory extends FontFactoryAbstract {
 
    public IMFont getDefaultFont() {
       if (defaultFont == null) {
-         defaultFont = new FontJ2ME(cdc, Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
+         defaultFont = new FontJ2me(cdc, Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
       }
       return defaultFont;
    }
@@ -83,7 +83,7 @@ public class J2MEFontFactory extends FontFactoryAbstract {
       } else if (size == IMFont.SIZE_1_TINY) {
          size = Font.SIZE_SMALL;
       }
-      return new FontJ2ME(cdc, Font.getFont(face, style, size));
+      return new FontJ2me(cdc, Font.getFont(face, style, size));
    }
 
    /**

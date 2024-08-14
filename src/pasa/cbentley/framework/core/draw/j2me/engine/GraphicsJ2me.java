@@ -1,25 +1,25 @@
-package pasa.cbentley.framework.coredraw.j2me.engine;
+package pasa.cbentley.framework.core.draw.j2me.engine;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.utils.BitUtils;
-import pasa.cbentley.framework.coredraw.j2me.ctx.CoreDrawJ2MECtx;
+import pasa.cbentley.framework.core.draw.j2me.ctx.CoreDrawJ2meCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.GraphicsAbstract;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IGraphics;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 
-public class GraphicsJ2ME extends GraphicsAbstract implements IGraphics {
+public class GraphicsJ2me extends GraphicsAbstract implements IGraphics {
 
    private Graphics        g;
 
-   private CoreDrawJ2MECtx dd;
+   private CoreDrawJ2meCtx dd;
 
    private int             fwFlags;
 
-   public GraphicsJ2ME(Graphics g, CoreDrawJ2MECtx cdc) {
+   public GraphicsJ2me(Graphics g, CoreDrawJ2meCtx cdc) {
       super(cdc);
       this.g = g;
       this.dd = cdc;
@@ -50,7 +50,7 @@ public class GraphicsJ2ME extends GraphicsAbstract implements IGraphics {
    }
 
    public void drawImage(IImage img, int x, int y, int anchor) {
-      ImageJ2ME i = (ImageJ2ME) img;
+      ImageJ2me i = (ImageJ2me) img;
       g.drawImage((Image) i.getImage(), x, y, anchor);
    }
 
@@ -63,7 +63,7 @@ public class GraphicsJ2ME extends GraphicsAbstract implements IGraphics {
    }
 
    public void drawRegion(IImage src, int x_src, int y_src, int width, int height, int transform, int x_dst, int y_dst, int anchor) {
-      ImageJ2ME i = (ImageJ2ME) src;
+      ImageJ2me i = (ImageJ2me) src;
       g.drawRegion((Image) i.getImage(), x_src, y_src, width, height, transform, x_dst, y_dst, anchor);
    }
 
@@ -179,8 +179,8 @@ public class GraphicsJ2ME extends GraphicsAbstract implements IGraphics {
 
    public synchronized void setFont(IMFont font) {
       myFont = font;
-      if (font instanceof FontJ2ME) {
-         g.setFont((((FontJ2ME) font).getFont()));
+      if (font instanceof FontJ2me) {
+         g.setFont((((FontJ2me) font).getFont()));
       }
    }
 
