@@ -8,6 +8,7 @@ import pasa.cbentley.framework.core.draw.j2me.ctx.CoreDrawJ2meCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontFactoryAbstract;
 import pasa.cbentley.framework.coredraw.src4.engine.VisualState;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
 public class FontFactoryJ2me extends FontFactoryAbstract {
@@ -16,23 +17,15 @@ public class FontFactoryJ2me extends FontFactoryAbstract {
 
    FontJ2me                        defaultFont;
 
-   /**
-    * <li> {@link ISizer#SIZE_0_NONE} = 0
-    * <li> {@link ISizer#SIZE_1_SMALLEST} = 1
-    * <li> {@link ISizer#SIZE_2_SMALL} = 2
-    * <li> {@link ISizer#SIZE_3_MEDIUM} = 3
-    * <li> {@link ISizer#SIZE_4_BIG} = 5
-    * <li> {@link ISizer#SIZE_5_BIGGEST} = 10
-    * 
-    */
-   int[]                           scalePadding = new int[] { 0, 2, 4, 5, 6, 8, 10 };
-
    public FontFactoryJ2me(CoreDrawJ2meCtx j2meCtx) {
       super(j2meCtx);
       this.cdc = j2meCtx;
    }
 
    protected IMFont createFont(int face, int style, int size) {
+      face = getMapFace(face);
+      style = getMapStyle(style);
+      size = getMapSize(size);
       Font f = Font.getFont(face, style, size);
       return new FontJ2me(cdc, f);
    }
@@ -69,21 +62,38 @@ public class FontFactoryJ2me extends FontFactoryAbstract {
       return defaultFont;
    }
 
-   public IMFont getDefaultFontMono() {
-      return null;
+
+
+   private int getMapFace(int face) {
+      switch (face) {
+         case ITechFont.FACE_01_MONOSPACE:
+            return Font.FACE_MONOSPACE;
+         case ITechFont.FACE_02_PROPORTIONAL:
+            return Font.FACE_PROPORTIONAL;
+         default:
+            return Font.FACE_SYSTEM;
+      }
    }
 
-   public IMFont getDefaultFontProportional() {
-      return null;
+   private int getMapStyle(int style) {
+      switch (style) {
+         case ITechFont.STYLE_1_BOLD:
+            return Font.STYLE_BOLD;
+         case ITechFont.STYLE_2_ITALIC:
+            return Font.STYLE_ITALIC;
+         case ITechFont.STYLE_3_UNDERLINED:
+            return Font.STYLE_UNDERLINED;
+         default:
+            return Font.STYLE_PLAIN;
+      }
    }
-
-   public IMFont getFont(int face, int style, int size) {
+   private int getMapSize(int size) {
       if (size == IMFont.SIZE_5_HUGE) {
          size = Font.SIZE_LARGE;
       } else if (size == IMFont.SIZE_1_TINY) {
          size = Font.SIZE_SMALL;
       }
-      return new FontJ2me(cdc, Font.getFont(face, style, size));
+      return size;
    }
 
    /**
@@ -93,11 +103,6 @@ public class FontFactoryJ2me extends FontFactoryAbstract {
       return getDefaultFont();
    }
 
-   public IMFont getFontDebug() {
-      if (z_refFontDebug == null)
-         z_refFontDebug = getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
-      return z_refFontDebug;
-   }
 
    /**
     * 
@@ -105,15 +110,11 @@ public class FontFactoryJ2me extends FontFactoryAbstract {
     * @return
     */
    public int getFontFaceID(String string) {
-      return IMFont.FACE_SYSTEM;
+      return IMFont.FACE_00_SYSTEM;
    }
 
    public String[] getFontFamilies() {
       // TODO Auto-generated method stub
-      return null;
-   }
-
-   public String getFontName() {
       return null;
    }
 
@@ -138,20 +139,6 @@ public class FontFactoryJ2me extends FontFactoryAbstract {
       return 1;
    }
 
-   public IMFont getFontScaled(int sizeHint, int w, int h) {
-      return getDefaultFont();
-   }
-
-   public int getScalePixel(int valu, int fun) {
-      if (fun == ITechLayout.SCALE_0_PADDING) {
-         return scalePadding[fun];
-      } else if (fun == ITechLayout.SCALE_1_EXPO) {
-         return scalePadding[fun];
-      } else {
-         throw new IllegalArgumentException();
-      }
-   }
-
    /**
     * Look up in the ressources for the font.
     * returns Face ID or -1 if not found
@@ -163,12 +150,7 @@ public class FontFactoryJ2me extends FontFactoryAbstract {
    }
 
    public void loadFont(InputStream is, String string) {
-      // TODO Auto-generated method stub
-
-   }
-
-   public void paintDone() {
-
+      //not supported
    }
 
    public void setFontName(String name) {

@@ -63,7 +63,7 @@ public class FontJ2me extends FontAbstract implements IMFont {
    }
 
    public boolean isMonospace() {
-      if (f.getFace() == ITechFont.FACE_MONOSPACE) {
+      if (f.getFace() == ITechFont.FACE_01_MONOSPACE) {
          return true;
       }
       return stringWidth("m") == stringWidth("i");
