@@ -13,20 +13,18 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 
 public class GraphicsJ2me extends GraphicsAbstract implements IGraphics {
 
-   private Graphics        g;
-
    private CoreDrawJ2meCtx dd;
 
    private int             fwFlags;
+
+   private Graphics        g;
+
+   protected IMFont        myFont;
 
    public GraphicsJ2me(Graphics g, CoreDrawJ2meCtx cdc) {
       super(cdc);
       this.g = g;
       this.dd = cdc;
-   }
-
-   public boolean hasImplementationFlag(int flag) {
-      return BitUtils.hasFlag(fwFlags, flag);
    }
 
    public void clipRect(int x, int y, int width, int height) {
@@ -84,6 +82,10 @@ public class GraphicsJ2me extends GraphicsAbstract implements IGraphics {
 
    }
 
+   public boolean featureEnable(int featureID, boolean enable) {
+      return false;
+   }
+
    public void fillArc(int x, int y, int w, int h, int sa, int aa) {
       g.fillArc(x, y, w, h, sa, aa);
    }
@@ -128,8 +130,6 @@ public class GraphicsJ2me extends GraphicsAbstract implements IGraphics {
       return g.getDisplayColor(color);
    }
 
-   protected IMFont myFont;
-
    public IMFont getFont() {
       return myFont;
    }
@@ -165,6 +165,14 @@ public class GraphicsJ2me extends GraphicsAbstract implements IGraphics {
       return g.getTranslateY();
    }
 
+   public boolean hasFeatureEnabled(int featureID) {
+      return false;
+   }
+
+   public boolean hasImplementationFlag(int flag) {
+      return BitUtils.hasFlag(fwFlags, flag);
+   }
+
    public void setClip(int x, int y, int width, int height) {
       g.setClip(x, y, width, height);
    }
@@ -192,27 +200,25 @@ public class GraphicsJ2me extends GraphicsAbstract implements IGraphics {
       g.setStrokeStyle(style);
    }
 
-   public boolean hasFeatureEnabled(int featureID) {
-      return false;
-   }
-
-   public boolean featureEnable(int featureID, boolean enable) {
-      return false;
-   }
-
-   public void translate(int x, int y) {
+   public void setTranslate(int x, int y) {
       g.translate(x, y);
    }
 
    //#mdebug
-
    public void toString(Dctx dc) {
-      dc.root(this, "GraphicsJ2SE");
+      dc.root(this, GraphicsJ2me.class, 208);
+      toStringPrivate(dc);
       super.toString(dc.sup());
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, "GraphicsJ2SE");
+      dc.root1Line(this, GraphicsJ2me.class, 208);
+      toStringPrivate(dc);
+      super.toString1Line(dc.sup1Line());
+   }
+
+   private void toStringPrivate(Dctx dc) {
+
    }
    //#enddebug
 
